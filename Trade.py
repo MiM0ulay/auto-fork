@@ -28,12 +28,17 @@ def stat_crypto(app_data, interval, assets, output, gain=0.0):
     indication = 'Predicted'
     asset = 'Cryptocurrency'
 
+    st.title(f'Automated Technical Analysis.')
+
     if asset in ['Cryptocurrency']:
         exchange = 'Binance'
         app_data.exchange_data(exchange)
         markets = app_data.markets
         market = 'USDT'
         app_data.market_data(market)
+
+        st.subheader(f'Data Sourced from {exchange}.')
+
 
         risk = 'Low'  # , 'Medium', 'High'
 
@@ -110,13 +115,10 @@ def stat_crypto(app_data, interval, assets, output, gain=0.0):
             df = df.sort_values(by='max gain %', ascending=False)
 
             df = df.iloc[:20, :]
+    
+            st.info(f'Predicting...')
 
-
-    st.title(f'Automated Technical Analysis.')
-    st.subheader(f'Data Sourced from {exchange}.')
-    st.info(f'Predicting...')
-
-    st.dataframe(df, 200, 100)
+            st.dataframe(df, 200, 100)
     
 
 
@@ -151,5 +153,4 @@ if __name__ == '__main__':
         assets=potential_assets_24h,
         gain=3.0,
         output=f'{date_time}_6h.xlsx')
-
 
